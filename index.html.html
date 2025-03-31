@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOVE ME, DON'T LEAVE ME SELF-ASSESSMENTS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+           
+        }
+        h1 {
+            text-align: center;
+            color: #fa072f;
+            font-size: 2.5em;
+            text-transform: uppercase;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+            img {
+            display: block;
+            margin: 20px auto;
+            width: 200px;
+            height: auto;
+        }
+          
+        .question {
+            margin-bottom: 30px; /* Adds space before the next question */
+            text-align: start; /* Centers the questions */
+            color: #fa0795;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #0066cc;
+            white-space: pre-wrap; /* Ensures line breaks in results */
+        }
+        .link {
+            text-align: start;
+            margin-top: 20px;
+        }
+        .link a {
+            color: #4CAF50;
+            text-decoration: #26a6d8;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        /* Hide the assessment by default */
+        #assessment {
+            display: none;
+        }   
+        
+
+    </style>
+    <script>
+        let respondentName = ""; // To store respondent's name
+        let abandonmentScore = 0; // To store the total score globally
+        let mistrustandAbuseScore = 0; // To store the total score globally
+        let emotionaldeprivationScore = 0; // To store the total score globally
+        let defectivenessScore = 0; // To store the total score globally
+        let failureScore = 0; // To store the total score globally
+        let hasHighRating = false; // To track if any question was rated 5 or 6
+
+        function checkNameAndShowAssessment() {
+            const nameInput = document.getElementById("name").value.trim(); // Get and trim the name
+            const messageElement = document.getElementById("name-message"); // Reference the message display element
+            const assessmentElement = document.getElementById("assessment"); // Reference the assessment section
+            const nameInputSection = document.getElementById("name-section"); // Reference the name input section
+
+            if (nameInput) {
+                // Show welcoming message
+                if (nameInput.toLowerCase() === "maggie zgambo") {
+                    messageElement.innerText = "Thank you Maa, my dear for your choice in taking this assessment. Please be honest with yourself. It is only you who will be able to see your own results. Be flexible; transcend the past.";
+                } else {
+                    messageElement.innerText = `Thank you dear ${nameInput},  for your choice in taking this assessment. Please be honest with yourself. It is only you who will be able to see your own results. Be flexible; outlive the past.`;
+                }
+                // Hide name input and show the assessment
+                nameInputSection.style.display = "none"; // Hides the input field and label
+                assessmentElement.style.display = "block"; // Shows the assessment
+            } else {
+                // Clear the message and keep the assessment hidden if no name is entered
+                messageElement.innerText = "";
+                assessmentElement.style.display = "none";
+            }
+        }
+    </script>
+</head>
+    </script>
+    
+
+        function calculateAbandnmentScore() {
+            abandonmentScore = 0; // Reset the total score
+            let hasHighRating = false;
+
+            // Loop through all questions to calculate the total score
+            for (let i = 1; i <= 10; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                let value = 0;
+                for (const radio of radios) {
+                    if (radio.checked) {
+                        value = parseInt(radio.value);
+                        break;
+                    }
+                }
+                if (!isNaN(value)) {
+                    abandonmentScore += value;
+                }
+            }
+
+            // Display total score automatically
+            displayResults();
+        }
+
+        function displayResults() {
+            respondentName = document.getElementById("name").value; // Get respondent's name
+            let resultText = `Hi ${respondentName}!\nYour Abandonment Core belief  score is: ${abandnmentScore}\n\n`;
+            if (abandnmentScore >= 10 && abandnmentScore <= 19) {
+                resultText += "Very low.\nThis core belief probably does not apply to you.";
+            } else if (abandnmentScore >= 20 && abandnmentScore <= 29) {
+                resultText += "Fairly low.\nThis core belief may apply only occasionally.";
+            } else if (abandnmentScore >= 30 && abandnmentScore <= 39) {
+                resultText += "Moderate.\nThis core belief is an issue in your life.";
+            } else if (abandnmentScore >= 40 && abandnmentScore <= 49) {
+                resultText += "High.\nThis is definitely an important core belief for you.";
+            } else if (abandnmentScore >= 50 && abandnmentScore <= 60) {
+                resultText += "Very high.\nThis is a powerful core belief for you.";
+            } else {
+                resultText += "Please ensure all questions are answered correctly.";
+            }
+
+            // Display result in the HTML
+            document.getElementById("result").innerText = resultText;
+        }
+        function calculateMistrustandAbusetScore() {
+            mistrustandAbuseScore = 0; // Reset the total score
+            let hasHighRating = false;
+
+            // Loop through all questions to calculate the total score
+            for (let i = 1; i <= 10; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                let value = 0;
+                for (const radio of radios) {
+                    if (radio.checked) {
+                        value = parseInt(radio.value);
+                        break;
+                    }
+                }
+                if (!isNaN(value)) {
+                   mistrustandAbuseScore += value;
+                }
+            }
+
+            // Display total score automatically
+            displayResults();
+        }
+
+        function displayResults() {
+            respondentName = document.getElementById("name").value; // Get respondent's name
+            let resultText = `Hi ${respondentName}!\nYour Mistrust and Abuse Core blief score is: ${abandnmentScore}\n\n`;
+            if (mistrustandAbuseScore >= 10 && mistrustandAbuseScore <= 19) {
+                resultText += "Very low.\nThis core belief probably does not apply to you.";
+            } else if (mistrustandAbuseScore >= 20 && mistrustandAbuseScore <= 29) {
+                resultText += "Fairly low.\nThis core belief may apply only occasionally.";
+            } else if (mistrustandAbuseScore >= 30 && mistrustandAbuseScore <= 39) {
+                resultText += "Moderate.\nThis core belief is an issue in your life.";
+            } else if (mistrustandAbuseScore >= 40 && mistrustandAbuseScore <= 49) {
+                resultText += "High.\nThis is definitely an important core belief for you.";
+            } else if (mistrustandAbuseScore >= 50 && mistrustandAbuseScore <= 60) {
+                resultText += "Very high.\nThis is a powerful core belief for you.";
+            } else {
+                resultText += "Please ensure all questions are answered correctly.";
+            }
+
+            // Additional notes for high individual ratings
+            if (mistrustandAbuseScore < 30 && hasHighRating) {
+                resultText += `\n\nNote: Although your total score is low, you rated at least one statement as a 5 or 6. This indicates that this core belief is still an issue in your life.\n\nConsider the following possibilities:\n`;
+                resultText += "- You may have felt like your parents kept information from you.\n";
+                resultText += "- There may have been secret-keeping among family members.\n";
+                resultText += "- There was a lack of open communication in your family.\n";
+                resultText += "- There was an intangible climate of distrust.\n";
+                resultText += "- You were criticized or ridiculed when you were most vulnerable.\n";
+                resultText += "- You were bullied, ridiculed, or humiliated by your peers.";
+            }
+
+            // Display result in the HTML
+            document.getElementById("result").innerText = resultText;
+        }
+        function calculateEmotionalDeprivationtScore() {
+            emotionaldeprivationScore = 0; // Reset the total score
+            let hasHighRating = false;
+
+            // Loop through all questions to calculate the total score
+            for (let i = 1; i <= 10; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                let value = 0;
+                for (const radio of radios) {
+                    if (radio.checked) {
+                        value = parseInt(radio.value);
+                        break;
+                    }
+                }
+                if (!isNaN(value)) {
+                   emotionaldeprivationScore += value;
+                }
+            }
+
+            // Display total score automatically
+            displayResults();
+        }
+function displayResults() {
+    respondentName = document.getElementById("name").value; // Get respondent's name
+    let resultText = `Hi ${respondentName}!\nYour Mistrust and Abuse Core blief score is: ${abandnmentScore}\n\n`;
+    if (emotionaldeprivationScore >= 10 && emotionaldeprivationScore <= 19) {
+        resultText += "Very low.\nThis core belief probably does not apply to you.";
+    } else if (emotionaldeprivationScore >= 20 && emotionaldeprivationScore <= 29) {
+        resultText += "Fairly low.\nThis core belief may apply only occasionally.";
+    } else if (emotionaldeprivationScore >= 30 && emotionaldeprivationScore <= 39) {
+        resultText += "Moderate.\nThis core belief is an issue in your life.";
+    } else if (emotionaldeprivationScore >= 40 && emotionaldeprivationScore <= 49) {
+        resultText += "High.\nThis is definitely an important core belief for you.";
+    } else if (emotionaldeprivationScore >= 50 && emotionaldeprivationScore <= 60) {
+        resultText += "Very high.\nThis is a powerful core belief for you.";
+    } else {
+        resultText += "Please ensure all questions are answered correctly.";
+    }
+
+    // Additional notes for high individual ratings
+    if (emotionaldeprivationScore< 30 && hasHighRating) {
+        resultText += `\n\nNote:\n If you feel like this core belief is significant to your life though your score is lower than you expected, then you might want to consider some of the following childhood situations that could have contributed to your feelings:\n\\n`;
+        resultText += "- You felt less loved than a sibling or siblings.\n";
+        resultText += "- Your parents were such a tight unit that you felt left out.\n";
+        resultText += "- You felt different than the rest of your family (“I always wondered if I was adopted”) so you felt less understood or loved.\n";
+        resultText += "- You might have felt different from your peers and lacked the friend connections that happen in childhood and adolescence.\n";
+        resultText += "- You were made to feel like the needs and feelings of others were more important than yours.\n";
+        resultText += "- Your feelings or experiences weren't valued or validated.";
+    }
+
+    // Display result in the HTML
+    document.getElementById("result").innerText = resultText;
+
+}
+function calculateDefectivenessScore() {
+            defectivenessScore = 0; // Reset the total score
+            let hasHighRating = false;
+
+            // Loop through all questions to calculate the total score
+            for (let i = 1; i <= 10; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                let value = 0;
+                for (const radio of radios) {
+                    if (radio.checked) {
+                        value = parseInt(radio.value);
+                        break;
+                    }
+                }
+                if (!isNaN(value)) {
+                   defectivenessScore += value;
+                }
+            }
+
+            // Display total score automatically
+            displayResults();
+        }
+        
+function displayResults() {
+    respondentName = document.getElementById("name").value; // Get respondent's name
+    let resultText = `Hi ${respondentName}!\nYour Mistrust and Abuse Core blief score is: ${abandnmentScore}\n\n`;
+    if (defectivenessScore >= 10 && defectivenessScore <= 19) {
+        resultText += "Very low.\nThis core belief probably does not apply to you.";
+    } else if (defectivenessScore >= 20 && defectivenessScore <= 29) {
+        resultText += "Fairly low.\nThis core belief may apply only occasionally.";
+    } else if (defectivenessScore >= 30 && defectivenessScore <= 39) {
+        resultText += "Moderate.\nThis core belief is an issue in your life.";
+    } else if (defectivenessScore >= 40 && defectivenessScore <= 49) {
+        resultText += "High.\nThis is definitely an important core belief for you.";
+    } else if (defectivenessScore >= 50 && defectivenessScore <= 60) {
+        resultText += "Very high.\nThis is a powerful core belief for you.";
+    } else {
+        resultText += "Please ensure all questions are answered correctly.";
+    }
+
+    // Additional notes for high individual ratings
+    if (defectivenessScore < 30 && hasHighRating) {
+        resultText += `\n\nNote:\n This core belief is significant for many people and it can be a perceived internal or external feeling of defectiveness. You may have scored low on this questionnaire but you know that the feeling of defectiveness is with you.\nHere are some additional situations that may resonate with you:\n\\n`;
+        resultText += "- There was a physical characteristic that caused embarrassment or was the target of ridicule by others.\n";
+        resultText += "- There was something that made you feel self-conscious and you feared that others would discover it.\n";
+        resultText += "- You felt that there was something wrong with you because of the way that you were treated by a member or members of your family or peers.\n";
+        resultText += "- ou may have struggled with your gender identity or sexual orientation.\n";
+        resultText += "- You felt less than because you are an adopted child in a family with biological children or because you are a different race or ethnicity than your adoptive parents.\n";
+        resultText += "- You could never shake the feeling that something must be wrong with you if your biological mother put you up for adoption";
+        resultText += "- You have had an interest that varied from the mainstream and it made you feel different.\n";
+        resultText += "- You were afflicted with a childhood illness or disorder that left you feeling like something was wrong with you.\n";
+    }
+
+    // Display result in the HTML
+    document.getElementById("result").innerText = resultText;
+}
+function calculateFailureScore() {
+            failureScore = 0; // Reset the total score
+            let hasHighRating = false;
+
+            // Loop through all questions to calculate the total score
+            for (let i = 1; i <= 10; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                let value = 0;
+                for (const radio of radios) {
+                    if (radio.checked) {
+                        value = parseInt(radio.value);
+                        break;
+                    }
+                }
+                if (!isNaN(value)) {
+                   failureScore += value;
+                }
+            }
+
+            // Display total score automatically
+            displayResults();
+        }
+
+        function displayResults() {
+            respondentName = document.getElementById("name").value; // Get respondent's name
+            let resultText = `Hi ${respondentName}!\nYour Mistrust and Abuse Core blief score is: ${abandnmentScore}\n\n`;
+            if (failureScore >= 10 && failureScore <= 19) {
+                resultText += "Very low.\nThis core belief probably does not apply to you.";
+            } else if (failureScore >= 20 && failureScore <= 29) {
+                resultText += "Fairly low.\nThis core belief may apply only occasionally.";
+            } else if (failureScore >= 30 && failureScore <= 39) {
+                resultText += "Moderate.\nThis core belief is an issue in your life.";
+            } else if (failureScore >= 40 && failureScore <= 49) {
+                resultText += "High.\nThis is definitely an important core belief for you.";
+            } else if (failureScore >= 50 && failureScore <= 60) {
+                resultText += "Very high.\nThis is a powerful core belief for you.";
+            } else {
+                resultText += "Please ensure all questions are answered correctly.";
+            }
+
+            // Additional notes for high individual ratings
+            if (failureScore < 30 && hasHighRating) {
+                resultText += `\n\nNote:\n If you have a low score but you feel like you're a failure, then consider these additional experiences that may have contributed to this core belief::\n`;
+                resultText += "- Your parents were successful, wealthy, accomplished, talented, or well known and you felt like a failure by comparison.\n";
+                resultText += "- Your parents set unrealistic expectations for you (e.g., you were told from the time you were in kindergarten that you would go to Harvard).\n";
+                resultText += "- Your sibling(s) was more attractive, talented, and successful.\n";
+                resultText += `\n\nThese could have been true or they could have been your perception. Either way it is what you believed and that is what contributed to this core belief\n`;
+                
+            }
+
+            // Display result in the HTML
+            document.getElementById("result").innerText = resultText;
+        }
+
+    </script>
+</head>
+<body>
+    <h1>LOVE ME, DON'T LEAVE ME SELF-ASSESSMENTS EXERCISES</h1>
+    <img src="Image/Love me.jpeg" alt="Love Me, Don't Leave Me book cover">
+    <p style="text-align: start; font-size: 1;color: rgb(238, 102, 5) ;">
+        This journey requires work. At times it will feel challenging, especially when you are asked to examine unhealthy thoughts, behaviors, and emotions. The exercises contained in the book are designed to help you get closer to the healthy relationships that you desire. You will need to  to complete the exercises in this online journal that will track your progress.
+    </p>
+    <h2>Abandonment Core Belief Self-Assessment</h2>
+    <P style="text-align: start; font-size: 1.2em; color: #555;">
+        As discussed in the book, the abandonment core belief is a perceived instability or unreliability of those on whom you relied for support and connection.
+        It involves the belief that the significant person or people in your life will not be able to provide emotional support, connection, or protection because they are emotionally unstable and unpredictable, unreliable or erratically present, and/or will die or abandon you for someone else.
+        <br><br>
+        Rate the following statements using the scale below: 
+        <br>
+        <p style="text-align: start; font-size: 1.2em; color: #0167ec;">
+            1 = completely untrue of me
+            <br>
+            2 = mostly untrue of me
+            <br>
+            3 = slightly more true than untrue of me
+            <br>
+            4 = moderately true of me
+            <br>
+            5 = mostly true of me
+            <br>
+            6 = describes me perfectly
+        </p>
+       <!-- Wrapper div for centering -->
+       <div style="text-align: start; margin-bottom: 30px;">
+        <label for="name">Enter your full name:</label>
+        <br>
+        <input type="text" id="name" required>
+        <br>
+        <button onclick="checkNameAndShowAssessment();" style="margin-top: 10px;">Submit</button>
+        <p id="name-message" style="color: #4CAF50; font-style: italic; margin-top: 10px;"></p>
+    </div>
+
+    <!-- Abandonment Questions -->
+    <form oniput="calculateAbandnmentScore">
+        <div class="question">
+            <label>1. I worry a lot that the people I love will die or leave  me.:</label><br>
+            <input type="radio" name="q1" value="1" onclick="calculateAbandnmentScore();"> 1
+            <input type="radio" name="q1" value="2" onclick="calculateAbandnmentScore();"> 2
+            <input type="radio" name="q1" value="3" onclick="calculateAbandnmentScore();"> 3
+            <input type="radio" name="q1" value="4" onclick="calculateAbandnmentScore();"> 4
+            <input type="radio" name="q1" value="5" onclick="calculateAbandnmentScore();"> 5
+            <input type="radio" name="q1" value="6" onclick="calculateAbandnmentScore();"> 6
+        </div>
+        <div class="question">
+            <label>2. I cling to people because I am afraid they will leave me:</label><br>
+            <input type="radio" name="q2" value="1" onclick="calculateAbandnmentScore();"> 1
+            <input type="radio" name="q2" value="2" onclick="calculateAbandnmentScore();"> 2
+            <input type="radio" name="q2" value="3" onclick="calculateAbandnmentScore();"> 3
+            <input type="radio" name="q2" value="4" onclick="calculateAbandnmentScore();"> 4
+            <input type="radio" name="q2" value="5" onclick="calculateAbandnmentScore();"> 5
+            <input type="radio" name="q2" value="6" onclick="calculateAbandnmentScore();"> 6
+        </div>
+        <div class="question">
+            <label>3. I do not have a stable base support:</label><br>
+            <input type="radio" name="q3" value="1" onclick="calculateAbandnmentScore();"> 1
+            <input type="radio" name="q3" value="2" onclick="calculateAbandnmentScore();"> 2
+            <input type="radio" name="q3" value="3" onclick="calculateAbandnmentScore();"> 3
+            <input type="radio" name="q3" value="4" onclick="calculateAbandnmentScore();"> 4
+            <input type="radio" name="q3" value="5" onclick="calculateAbandnmentScore();"> 5
+            <input type="radio" name="q3" value="6" onclick="calculateAbandnmentScore();"> 6
+        </div>
+        <div class="question">
+            <label>4.  I keep falling in love with the people who cannot be there for me in a committed way:</label><br>
+            <input type="radio" name="q4" value="1" onclick="calculateAbandnmentScore();"> 1
+            <input type="radio" name="q4" value="2" onclick="calculateAbandnmentScore();"> 2
+            <input type="radio" name="q4" value="3" onclick="calculateAbandnmentScore();"> 3
+            <input type="radio" name="q4" value="4" onclick="calculateAbandnmentScore();"> 4
+            <input type="radio" name="q4" value="5" onclick="calculateAbandnmentScore();"> 5
+            <input type="radio" name="q4" value="6" onclick="calculateAbandnmentScore();"> 6
+        </div>
+        <div class="question">
+            <label>5. People have always come and gone in my life:</label><br>
+            <input type="radio" name="q5" value="1" onclick="calculateAbandnmentScore();"> 1
+            <input type="radio" name="q5" value="2" onclick="calculateAbandnmentScore();"> 2
+            <input type="radio" name="q5" value="3" onclick="calculateAbandnmentScore();"> 3
+            <input type="radio" name="q5" value="4" onclick="calculateAbandnmentScore();"> 4
+            <input type="radio" name="q5" value="5" onclick="calculateAbandnmentScore();"> 5
+            <input type="radio" name="q5" value="6" onclick="calculateAbandnmentScore();"> 6
+        </div>
+        <div class="question">
+            <label>6. I get desperate when someone I love pulls away:</label><br>
+            <input type="radio" name="q6" value="1" onclick="calculateAbandnmentScore();"> 1
+            <input type="radio" name="q6" value="2" onclick="calculateAbandnmentScore();"> 2
+            <input type="radio" name="q6" value="3" onclick="calculateAbandnmentScore();"> 3
+            <input type="radio" name="q6" value="4" onclick="calculateAbandnmentScore();"> 4
+            <input type="radio" name="q6" value="5" onclick="calculateAbandnmentScore();"> 5
+            <input type="radio" name="q6" value="6" onclick="calculateAbandnmentScore();"> 6
+        </div>
+        <div class="question">
+            <label>7. I get obsessed with the idea that my lovers will leave me that I drive them away:</label><br>
+            <input type="radio" name="q7" value="1" onclick="calculateAbandnmentScore();"> 1
+            <input type="radio" name="q7" value="2" onclick="calculateAbandnmentScore();"> 2
+            <input type="radio" name="q7" value="3" onclick="calculateAbandnmentScore();"> 3
+            <input type="radio" name="q7" value="4" onclick="calculateAbandnmentScore();"> 4
+            <input type="radio" name="q7" value="5" onclick="calculateAbandnmentScore();"> 5
+            <input type="radio" name="q7" value="6" onclick="calculateAbandnmentScore();"> 6
+        </div>
+        <div class="question">
+            <label>8. The people closest to me are unpredictable. One minute they are there for me, and the next minute they are gone:</label><br>
+            <input type="radio" name="q8" value="1" onclick="calculateAbandnmentScore();"> 1
+            <input type="radio" name="q8" value="2" onclick="calculateAbandnmentScore();"> 2
+            <input type="radio" name="q8" value="3" onclick="calculateAbandnmentScore();"> 3
+            <input type="radio" name="q8" value="4" onclick="calculateAbandnmentScore();"> 4
+            <input type="radio" name="q8" value="5" onclick="calculateAbandnmentScore();"> 5
+            <input type="radio" name="q8" value="6" onclick="calculateAbandnmentScore();"> 6
+        </div>
+        <div class="question">
+            <label>9. I need other people too much:</label><br>
+            <input type="radio" name="q9" value="1" onclick="calculateAbandnmentScore();"> 1
+            <input type="radio" name="q9" value="2" onclick="calculateAbandnmentScore();"> 2
+            <input type="radio" name="q9" value="3" onclick="calculateAbandnmentScore();"> 3
+            <input type="radio" name="q9" value="4" onclick="calculateAbandnmentScore();"> 4
+            <input type="radio" name="q9" value="5" onclick="calculateAbandnmentScore();"> 5
+            <input type="radio" name="q9" value="6" onclick="calculateAbandnmentScore();"> 6
+        </div>
+        <div class="question">
+            <label>10. In the end, I will be there alone:</label><br>
+            <input type="radio" name="q10" value="1" onclick="calculateAbandnmentScore();"> 1
+            <input type="radio" name="q10" value="2" onclick="calculateAbandnmentScore();"> 2
+            <input type="radio" name="q10" value="3" onclick="calculateAbandnmentScore();"> 3
+            <input type="radio" name="q10" value="4" onclick="calculateAbandnmentScore();"> 4
+            <input type="radio" name="q10" value="5" onclick="calculateAbandnmentScore();"> 5
+            <input type="radio" name="q10" value="6" onclick="calculateAbandnmentScore();"> 6
+        </div>
+    </form>
+    <div class="result" id="abandonment-result"></div>
+
+   <!-- Mistrust and Abuse Core Belief self-Assessment --> 
+    <h2>Mistrust and Abuse Core Belief Self-Assessment</h2>
+<p style="text-align: start; font-size: 1.2em; color: #555;">
+    The mistrust and abuse core belief is one of the four common coconspirators. 
+    If you grew up in an environment in which you didn't trust the person or people close to you, you didn't feel safe, and/or you were physically, verbally, emotionally, or sexually abused, then you probably have a mistrust and abuse core belief.
+    <br><br> 
+    Rate the following statements using the scale below:
+    <br>
+    <p style="text-align: start; font-size: 1.2em; color: #0167ec;">
+        1 = completely untrue of me
+        <br>
+        2 = mostly untrue of me
+        <br>
+        3 = slightly more true than untrue of me
+        <br>
+        4 = moderately true of me
+        <br>
+        5 = mostly true of me
+        <br>
+        6 = describes me perfectly
+</p>
+        <!-- Mistrust and Abuse Questions -->
+        <div class="question">
+            <label>1. I expect people to hurt me or use me:</label><br>
+            <input type="radio" name="q1" value="1" onclick="calculateScore();"> 1
+            <input type="radio" name="q1" value="2" onclick="calculateScore();"> 2
+            <input type="radio" name="q1" value="3" onclick="calculateScore();"> 3
+            <input type="radio" name="q1" value="4" onclick="calculateScore();"> 4
+            <input type="radio" name="q1" value="5" onclick="calculateScore();"> 5
+            <input type="radio" name="q1" value="6" onclick="calculateScore();"> 6
+        </div>
+        <div class="question">
+            <label>2. Throughout my life people close to me have abused me:</label><br>
+            <input type="radio" name="q2" value="1" onclick="calculateScore();"> 1
+            <input type="radio" name="q2" value="2" onclick="calculateScore();"> 2
+            <input type="radio" name="q2" value="3" onclick="calculateScore();"> 3
+            <input type="radio" name="q2" value="4" onclick="calculateScore();"> 4
+            <input type="radio" name="q2" value="5" onclick="calculateScore();"> 5
+            <input type="radio" name="q2" value="6" onclick="calculateScore();"> 6
+        </div>
+        <div class="question">
+            <label>3. It is only a matter of time before the people I love will betray me:</label><br>
+            <input type="radio" name="q3" value="1" onclick="calculateScore();"> 1
+            <input type="radio" name="q3" value="2" onclick="calculateScore();"> 2
+            <input type="radio" name="q3" value="3" onclick="calculateScore();"> 3
+            <input type="radio" name="q3" value="4" onclick="calculateScore();"> 4
+            <input type="radio" name="q3" value="5" onclick="calculateScore();"> 5
+            <input type="radio" name="q3" value="6" onclick="calculateScore();"> 6
+        </div>
+        <div class="question">
+            <label>4. I have to protect myself and stay on my guard:</label><br>
+            <input type="radio" name="q4" value="1" onclick="calculateScore();"> 1
+            <input type="radio" name="q4" value="2" onclick="calculateScore();"> 2
+            <input type="radio" name="q4" value="3" onclick="calculateScore();"> 3
+            <input type="radio" name="q4" value="4" onclick="calculateScore();"> 4
+            <input type="radio" name="q4" value="5" onclick="calculateScore();"> 5
+            <input type="radio" name="q4" value="6" onclick="calculateScore();"> 6
+        </div>
+        <div class="question">
+            <label>5. If I am not careful, people will take advantage of me:</label><br>
+            <input type="radio" name="q5" value="1" onclick="calculateScore();"> 1
+            <input type="radio" name="q5" value="2" onclick="calculateScore();"> 2
+            <input type="radio" name="q5" value="3" onclick="calculateScore();"> 3
+            <input type="radio" name="q5" value="4" onclick="calculateScore();"> 4
+            <input type="radio" name="q5" value="5" onclick="calculateScore();"> 5
+            <input type="radio" name="q5" value="6" onclick="calculateScore();"> 6
+        </div>
+        <div class="question">
+            <label>6. I set up tests for people to see if they are really on my side:</label><br>
+            <input type="radio" name="q6" value="1" onclick="calculateScore();"> 1
+            <input type="radio" name="q6" value="2" onclick="calculateScore();"> 2
+            <input type="radio" name="q6" value="3" onclick="calculateScore();"> 3
+            <input type="radio" name="q6" value="4" onclick="calculateScore();"> 4
+            <input type="radio" name="q6" value="5" onclick="calculateScore();"> 5
+            <input type="radio" name="q6" value="6" onclick="calculateScore();"> 6
+        </div>
+        <div class="question">
+            <label>7. I try to hurt people before they hurt me:</label><br>
+            <input type="radio" name="q7" value="1" onclick="calculateScore();"> 1
+            <input type="radio" name="q7" value="2" onclick="calculateScore();"> 2
+            <input type="radio" name="q7" value="3" onclick="calculateScore();"> 3
+            <input type="radio" name="q7" value="4" onclick="calculateScore();"> 4
+            <input type="radio" name="q7" value="5" onclick="calculateScore();"> 5
+            <input type="radio" name="q7" value="6" onclick="calculateScore();"> 6
+        </div>
+        <div class="question">
+            <label>8. I am afraid to let people get close to me because I expect them to hurt me:</label><br>
+            <input type="radio" name="q8" value="1" onclick="calculateScore();"> 1
+            <input type="radio" name="q8" value="2" onclick="calculateScore();"> 2
+            <input type="radio" name="q8" value="3" onclick="calculateScore();"> 3
+            <input type="radio" name="q8" value="4" onclick="calculateScore();"> 4
+            <input type="radio" name="q8" value="5" onclick="calculateScore();"> 5
+            <input type="radio" name="q8" value="6" onclick="calculateScore();"> 6
+        </div>
+        <div class="question">
+            <label>9. I am angry about what people have  done to me:</label><br>
+            <input type="radio" name="q9" value="1" onclick="calculateScore();"> 1
+            <input type="radio" name="q9" value="2" onclick="calculateScore();"> 2
+            <input type="radio" name="q9" value="3" onclick="calculateScore();"> 3
+            <input type="radio" name="q9" value="4" onclick="calculateScore();"> 4
+            <input type="radio" name="q9" value="5" onclick="calculateScore();"> 5
+            <input type="radio" name="q9" value="6" onclick="calculateScore();"> 6
+        </div>
+        <div class="question">
+            <label>10. I have been physically, verbally, or sexually abused by people I should have been able to trust:</label><br>
+            <input type="radio" name="q10" value="1" onclick="calculateScore();"> 1
+            <input type="radio" name="q10" value="2" onclick="calculateScore();"> 2
+            <input type="radio" name="q10" value="3" onclick="calculateScore();"> 3
+            <input type="radio" name="q10" value="4" onclick="calculateScore();"> 4
+            <input type="radio" name="q10" value="5" onclick="calculateScore();"> 5
+            <input type="radio" name="q10" value="6" onclick="calculateScore();"> 6
+        </div>
+    </form>
+
+    <div class="result" id="Mistrust-result"></div>
+
+    <!-- Emotional Deprivation Core Belief self-Assessment -->
+<h2>Emotional Deprivation Core Belief Self-Assessment</h2>
+<p style="text-align: start; font-size: 1.2em; color: #555;">
+    Emotional deprivation is another partner in crime with the abandonment core belief. 
+    <br>
+    If you grew up in an environment where you didn't receive emotional support, attention, affection, guidance, and understanding, then emotional deprivation is probably one of your core beliefs.
+    <br><br>
+    Rate the following statements using the scale below:
+    <br>
+    <p style="text-align: start; font-size: 1.2em; color: #0167ec;">
+        1 = completely untrue of me
+        <br>
+        2 = mostly untrue of me
+        <br>
+        3 = slightly more true than untrue of me
+        <br>
+        4 = moderately true of me
+        <br>
+        5 = mostly true of me
+        <br>
+        6 = describes me perfectly
+    </p>
+
+    <!-- Emotional Deprivation Questions -->
+    <div class="question">
+        <label>1. I need more love than I get:</label><br>
+        <input type="radio" name="q1" value="1" onclick="calculateScore();"> 1
+        <input type="radio" name="q1" value="2" onclick="calculateScore();"> 2
+        <input type="radio" name="q1" value="3" onclick="calculateScore();"> 3
+        <input type="radio" name="q1" value="4" onclick="calculateScore();"> 4
+        <input type="radio" name="q1" value="5" onclick="calculateScore();"> 5
+        <input type="radio" name="q1" value="6" onclick="calculateScore();"> 6
+    </div>
+    <div class="question">
+        <label>2. No one really understands me:</label><br>
+        <input type="radio" name="q2" value="1" onclick="calculateScore();"> 1
+        <input type="radio" name="q2" value="2" onclick="calculateScore();"> 2
+        <input type="radio" name="q2" value="3" onclick="calculateScore();"> 3
+        <input type="radio" name="q2" value="4" onclick="calculateScore();"> 4
+        <input type="radio" name="q2" value="5" onclick="calculateScore();"> 5
+        <input type="radio" name="q2" value="6" onclick="calculateScore();"> 6
+        </div>
+        <div class="question">
+            <label>3. I am often attracted to cold partners who can't meet my needs:</label><br>
+            <input type="radio" name="q3" value="1" onclick="calculateScore();"> 1
+            <input type="radio" name="q3" value="2" onclick="calculateScore();"> 2
+            <input type="radio" name="q3" value="3" onclick="calculateScore();"> 3
+            <input type="radio" name="q3" value="4" onclick="calculateScore();"> 4
+            <input type="radio" name="q3" value="5" onclick="calculateScore();"> 5
+            <input type="radio" name="q3" value="6" onclick="calculateScore();"> 6
+        </div>
+        <div class="question">
+            <label>4. I feel disconnected, even from the people who are closest to me:</label><br>
+            <input type="radio" name="q4" value="1" onclick="calculateScore();"> 1
+            <input type="radio" name="q4" value="2" onclick="calculateScore();"> 2
+            <input type="radio" name="q4" value="3" onclick="calculateScore();"> 3
+            <input type="radio" name="q4" value="4" onclick="calculateScore();"> 4
+            <input type="radio" name="q4" value="5" onclick="calculateScore();"> 5
+            <input type="radio" name="q4" value="6" onclick="calculateScore();"> 6
+        </div>
+        <div class="question">
+            <label>5. I have not had one special person I love who wants to share himself with me and cares deeply about what happens to me:</label><br>
+            <input type="radio" name="q5" value="1" onclick="calculateScore();"> 1
+            <input type="radio" name="q5" value="2" onclick="calculateScore();"> 2
+            <input type="radio" name="q5" value="3" onclick="calculateScore();"> 3
+            <input type="radio" name="q5" value="4" onclick="calculateScore();"> 4
+            <input type="radio" name="q5" value="5" onclick="calculateScore();"> 5
+            <input type="radio" name="q5" value="6" onclick="calculateScore();"> 6
+        </div>
+        <div class="question">
+            <label>6. No one is there to give me warmth, holding, and affection:</label><br>
+            <input type="radio" name="q6" value="1" onclick="calculateScore();"> 1
+            <input type="radio" name="q6" value="2" onclick="calculateScore();"> 2
+            <input type="radio" name="q6" value="3" onclick="calculateScore();"> 3
+            <input type="radio" name="q6" value="4" onclick="calculateScore();"> 4
+            <input type="radio" name="q6" value="5" onclick="calculateScore();"> 5
+            <input type="radio" name="q6" value="6" onclick="calculateScore();"> 6
+        </div>
+        <div class="question">
+            <label>7. I do not have someone who really listens and i tuned in to my true needs and feelings:</label><br>
+            <input type="radio" name="q7" value="1" onclick="calculateScore();"> 1
+            <input type="radio" name="q7" value="2" onclick="calculateScore();"> 2
+            <input type="radio" name="q7" value="3" onclick="calculateScore();"> 3
+            <input type="radio" name="q7" value="4" onclick="calculateScore();"> 4
+            <input type="radio" name="q7" value="5" onclick="calculateScore();"> 5
+            <input type="radio" name="q7" value="6" onclick="calculateScore();"> 6
+        </div>
+        <div class="question">
+            <label>8. It is hard for me to let people guide or protect me, even though it is what I want inside:</label><br>
+            <input type="radio" name="q8" value="1" onclick="calculateScore();"> 1
+            <input type="radio" name="q8" value="2" onclick="calculateScore();"> 2
+            <input type="radio" name="q8" value="3" onclick="calculateScore();"> 3
+            <input type="radio" name="q8" value="4" onclick="calculateScore();"> 4
+            <input type="radio" name="q8" value="5" onclick="calculateScore();"> 5
+            <input type="radio" name="q8" value="6" onclick="calculateScore();"> 6
+        </div>
+        <div class="question">
+            <label>9. It is hard for me to let people love me:</label><br>
+            <input type="radio" name="q9" value="1" onclick="calculateScore();"> 1
+            <input type="radio" name="q9" value="2" onclick="calculateScore();"> 2
+            <input type="radio" name="q9" value="3" onclick="calculateScore();"> 3
+            <input type="radio" name="q9" value="4" onclick="calculateScore();"> 4
+            <input type="radio" name="q9" value="5" onclick="calculateScore();"> 5
+            <input type="radio" name="q9" value="6" onclick="calculateScore();"> 6
+        </div>
+        <div class="question">
+            <label>10. I am lonely a lot of the time:</label><br>
+            <input type="radio" name="q10" value="1" onclick="calculateScore();"> 1
+            <input type="radio" name="q10" value="2" onclick="calculateScore();"> 2
+            <input type="radio" name="q10" value="3" onclick="calculateScore();"> 3
+            <input type="radio" name="q10" value="4" onclick="calculateScore();"> 4
+            <input type="radio" name="q10" value="5" onclick="calculateScore();"> 5
+            <input type="radio" name="q10" value="6" onclick="calculateScore();"> 6
+        </div>
+    </form>
+    <div class="result" id="EmotionalDeprivation-result"></div>
+
+
+    <!-- Defectiveness Questions -->
+     <h2> Defectiveness Core Belief Self-Assessment</h2>
+     <p style="text-align: start; font-size: 1.2em; color: #555;">
+        The defectiveness core belief often rides shotgun with the abandonment core belief. If you feel that you are bad, unworthy, defective, and that if someone saw you for who you really are he or she would find you unlovable and reject you, then it's likely that you have a defectiveness core belief. 
+        <br>
+        Rate the following statements using the scale below:
+        <br>
+        <p style="text-align: start; font-size: 1.2em; color: #0167ec;">
+            1 = completely untrue of me
+            <br>
+            2 = mostly untrue of me
+            <br>
+            3 = slightly more true than untrue of me
+            <br>
+            4 = moderately true of me
+            <br>
+            5 = mostly true of me
+            <br>
+            6 = describes me perfectly
+        </p>
+    
+        <!-- Defectiveness Questions -->
+    </div>
+    <div class="question">
+        <label>1. No man or woman could love me if he or she really knew me:</label><br>
+        <input type="radio" name="q1" value="1" onclick="calculateScore();"> 1
+        <input type="radio" name="q1" value="2" onclick="calculateScore();"> 2
+        <input type="radio" name="q1" value="3" onclick="calculateScore();"> 3
+        <input type="radio" name="q1" value="4" onclick="calculateScore();"> 4
+        <input type="radio" name="q1" value="5" onclick="calculateScore();"> 5
+        <input type="radio" name="q1" value="6" onclick="calculateScore();"> 6
+    </div>
+    <div class="question">
+        <label>2. I am inherently flawed and defective. I am unworthy of love:</label><br>
+        <input type="radio" name="q2" value="1" onclick="calculateScore();"> 1
+        <input type="radio" name="q2" value="2" onclick="calculateScore();"> 2
+        <input type="radio" name="q2" value="3" onclick="calculateScore();"> 3
+        <input type="radio" name="q2" value="4" onclick="calculateScore();"> 4
+        <input type="radio" name="q2" value="5" onclick="calculateScore();"> 5
+        <input type="radio" name="q2" value="6" onclick="calculateScore();"> 6
+    </div>
+        <div class="question">
+        <label>3. I have secrets that I do not want to share, even with the people closest to me:</label><br>
+        <input type="radio" name="q3" value="1" onclick="calculateScore();"> 1
+        <input type="radio" name="q3" value="2" onclick="calculateScore();"> 2
+        <input type="radio" name="q3" value="3" onclick="calculateScore();"> 3
+        <input type="radio" name="q3" value="4" onclick="calculateScore();"> 4
+        <input type="radio" name="q3" value="5" onclick="calculateScore();"> 5
+        <input type="radio" name="q3" value="6" onclick="calculateScore();"> 6
+    </div>
+    <div class="question">
+        <label>4. It was my fault that my parents could not love me:</label><br>
+        <input type="radio" name="q4" value="1" onclick="calculateScore();"> 1
+        <input type="radio" name="q4" value="2" onclick="calculateScore();"> 2
+        <input type="radio" name="q4" value="3" onclick="calculateScore();"> 3
+        <input type="radio" name="q4" value="4" onclick="calculateScore();"> 4
+        <input type="radio" name="q4" value="5" onclick="calculateScore();"> 5
+        <input type="radio" name="q4" value="6" onclick="calculateScore();"> 6
+    </div>
+        <div class="question">
+        <label>5. I hide the real me. The real me is unacceptable. The self I show is a false self:</label><br>
+        <input type="radio" name="q5" value="1" onclick="calculateScore();"> 1
+        <input type="radio" name="q5" value="2" onclick="calculateScore();"> 2
+        <input type="radio" name="q5" value="3" onclick="calculateScore();"> 3
+        <input type="radio" name="q5" value="4" onclick="calculateScore();"> 4
+        <input type="radio" name="q5" value="5" onclick="calculateScore();"> 5
+        <input type="radio" name="q5" value="6" onclick="calculateScore();"> 6
+    </div>
+        <div class="question">
+        <label>6. I am often drawn to people—parents, friends, and lovers—who are critical and reject me:</label><br>
+        <input type="radio" name="q6" value="1" onclick="calculateScore();"> 1
+        <input type="radio" name="q6" value="2" onclick="calculateScore();"> 2
+        <input type="radio" name="q6" value="3" onclick="calculateScore();"> 3
+        <input type="radio" name="q6" value="4" onclick="calculateScore();"> 4
+        <input type="radio" name="q6" value="5" onclick="calculateScore();"> 5
+        <input type="radio" name="q6" value="6" onclick="calculateScore();"> 6
+    </div>
+        <div class="question">
+        <label>7. I am often critical and rejecting, especially of people who seem to love me:</label><br>
+        <input type="radio" name="q7" value="1" onclick="calculateScore();"> 1
+        <input type="radio" name="q7" value="2" onclick="calculateScore();"> 2
+        <input type="radio" name="q7" value="3" onclick="calculateScore();"> 3
+        <input type="radio" name="q7" value="4" onclick="calculateScore();"> 4
+        <input type="radio" name="q7" value="5" onclick="calculateScore();"> 5
+        <input type="radio" name="q7" value="6" onclick="calculateScore();"> 6
+    </div>
+        <div class="question">
+        <label>8. I devalue my positive qualities:</label><br>
+        <input type="radio" name="q8" value="1" onclick="calculateScore();"> 1
+        <input type="radio" name="q8" value="2" onclick="calculateScore();"> 2
+        <input type="radio" name="q8" value="3" onclick="calculateScore();"> 3
+        <input type="radio" name="q8" value="4" onclick="calculateScore();"> 4
+        <input type="radio" name="q8" value="5" onclick="calculateScore();"> 5
+        <input type="radio" name="q8" value="6" onclick="calculateScore();"> 6
+    </div>
+        <div class="question">
+        <label>9. I live with a great deal of shame about myself:</label><br>
+        <input type="radio" name="q9" value="1" onclick="calculateScore();"> 1
+        <input type="radio" name="q9" value="2" onclick="calculateScore();"> 2
+        <input type="radio" name="q9" value="3" onclick="calculateScore();"> 3
+        <input type="radio" name="q9" value="4" onclick="calculateScore();"> 4
+        <input type="radio" name="q9" value="5" onclick="calculateScore();"> 5
+        <input type="radio" name="q9" value="6" onclick="calculateScore();"> 6
+    </div>
+        <div class="question">
+        <label>10. One of my greatest fears is that my faults will be exposed:</label><br>
+        <input type="radio" name="q10" value="1" onclick="calculateScore();"> 1
+        <input type="radio" name="q10" value="2" onclick="calculateScore();"> 2
+        <input type="radio" name="q10" value="3" onclick="calculateScore();"> 3
+        <input type="radio" name="q10" value="4" onclick="calculateScore();"> 4
+        <input type="radio" name="q10" value="5" onclick="calculateScore();"> 5
+        <input type="radio" name="q10" value="6" onclick="calculateScore();"> 6
+    </div>
+</form>
+<div class="result" id="Defectiveness-result"></div>
+
+
+<!-- Failure Questions -->
+ <h2> Failure Core Belief Self-Assessment</h2>
+ <p style="text-align: start; font-size: 1.2em; color: #555;">
+    The failure core belief can be an accomplice to the abandonment core belief. If you feel like you’ve failed, that failure is inevitable, or that you don’t measure up to your peers because you aren’t as smart, talented, or successful, then you probably have a failure core belief. 
+    <br>
+    Rate the following statements using the scale below:
+    <br>
+    <p style="text-align: start; font-size: 1.2em; color: #0167ec;">
+        1 = completely untrue of me
+        <br>
+        2 = mostly untrue of me
+        <br>
+        3 = slightly more true than untrue of me
+        <br>
+        4 = moderately true of me
+        <br>
+        5 = mostly true of me
+        <br>
+        6 = describes me perfectly
+    </p>
+
+    <!-- Failure Questions -->
+</div>
+<div class="question">
+    <label>1. I feel I am less competent than other people in areas of achievement:</label><br>
+    <input type="radio" name="q1" value="1" onclick="calculateScore();"> 1
+    <input type="radio" name="q1" value="2" onclick="calculateScore();"> 2
+    <input type="radio" name="q1" value="3" onclick="calculateScore();"> 3
+    <input type="radio" name="q1" value="4" onclick="calculateScore();"> 4
+    <input type="radio" name="q1" value="5" onclick="calculateScore();"> 5
+    <input type="radio" name="q1" value="6" onclick="calculateScore();"> 6
+</div>
+<div class="question">
+    <label>2. I feel that I am a failure when it comes to achievement:</label><br>
+    <input type="radio" name="q2" value="1" onclick="calculateScore();"> 1
+    <input type="radio" name="q2" value="2" onclick="calculateScore();"> 2
+    <input type="radio" name="q2" value="3" onclick="calculateScore();"> 3
+    <input type="radio" name="q2" value="4" onclick="calculateScore();"> 4
+    <input type="radio" name="q2" value="5" onclick="calculateScore();"> 5
+    <input type="radio" name="q2" value="6" onclick="calculateScore();"> 6
+</div>
+    <div class="question">
+    <label>3. Most people my age are more successful in their work than I am:</label><br>
+    <input type="radio" name="q3" value="1" onclick="calculateScore();"> 1
+    <input type="radio" name="q3" value="2" onclick="calculateScore();"> 2
+    <input type="radio" name="q3" value="3" onclick="calculateScore();"> 3
+    <input type="radio" name="q3" value="4" onclick="calculateScore();"> 4
+    <input type="radio" name="q3" value="5" onclick="calculateScore();"> 5
+    <input type="radio" name="q3" value="6" onclick="calculateScore();"> 6
+</div>
+<div class="question">
+    <label>4. I was a failure as a student:</label><br>
+    <input type="radio" name="q4" value="1" onclick="calculateScore();"> 1
+    <input type="radio" name="q4" value="2" onclick="calculateScore();"> 2
+    <input type="radio" name="q4" value="3" onclick="calculateScore();"> 3
+    <input type="radio" name="q4" value="4" onclick="calculateScore();"> 4
+    <input type="radio" name="q4" value="5" onclick="calculateScore();"> 5
+    <input type="radio" name="q4" value="6" onclick="calculateScore();"> 6
+</div>
+    <div class="question">
+    <label>5. I feel I am not as intelligent as most of the people I associate with:</label><br>
+    <input type="radio" name="q5" value="1" onclick="calculateScore();"> 1
+    <input type="radio" name="q5" value="2" onclick="calculateScore();"> 2
+    <input type="radio" name="q5" value="3" onclick="calculateScore();"> 3
+    <input type="radio" name="q5" value="4" onclick="calculateScore();"> 4
+    <input type="radio" name="q5" value="5" onclick="calculateScore();"> 5
+    <input type="radio" name="q5" value="6" onclick="calculateScore();"> 6
+</div>
+    <div class="question">
+    <label>6. I feel humiliated by my failures in the work sphere:</label><br>
+    <input type="radio" name="q6" value="1" onclick="calculateScore();"> 1
+    <input type="radio" name="q6" value="2" onclick="calculateScore();"> 2
+    <input type="radio" name="q6" value="3" onclick="calculateScore();"> 3
+    <input type="radio" name="q6" value="4" onclick="calculateScore();"> 4
+    <input type="radio" name="q6" value="5" onclick="calculateScore();"> 5
+    <input type="radio" name="q6" value="6" onclick="calculateScore();"> 6
+</div>
+    <div class="question">
+    <label>7. I feel embarrassed around other people because I do not measure up in terms of my accomplishments:</label><br>
+    <input type="radio" name="q7" value="1" onclick="calculateScore();"> 1
+    <input type="radio" name="q7" value="2" onclick="calculateScore();"> 2
+    <input type="radio" name="q7" value="3" onclick="calculateScore();"> 3
+    <input type="radio" name="q7" value="4" onclick="calculateScore();"> 4
+    <input type="radio" name="q7" value="5" onclick="calculateScore();"> 5
+    <input type="radio" name="q7" value="6" onclick="calculateScore();"> 6
+</div>
+    <div class="question">
+    <label>8. I often feel that people believe I am more competent than I really am:</label><br>
+    <input type="radio" name="q8" value="1" onclick="calculateScore();"> 1
+    <input type="radio" name="q8" value="2" onclick="calculateScore();"> 2
+    <input type="radio" name="q8" value="3" onclick="calculateScore();"> 3
+    <input type="radio" name="q8" value="4" onclick="calculateScore();"> 4
+    <input type="radio" name="q8" value="5" onclick="calculateScore();"> 5
+    <input type="radio" name="q8" value="6" onclick="calculateScore();"> 6
+</div>
+    <div class="question">
+    <label>9. I feel that I do not have any special talents that really count in life:</label><br>
+    <input type="radio" name="q9" value="1" onclick="calculateScore();"> 1
+    <input type="radio" name="q9" value="2" onclick="calculateScore();"> 2
+    <input type="radio" name="q9" value="3" onclick="calculateScore();"> 3
+    <input type="radio" name="q9" value="4" onclick="calculateScore();"> 4
+    <input type="radio" name="q9" value="5" onclick="calculateScore();"> 5
+    <input type="radio" name="q9" value="6" onclick="calculateScore();"> 6
+</div>
+    <div class="question">
+    <label>10. I am working below my potential:</label><br>
+    <input type="radio" name="q10" value="1" onclick="calculateScore();"> 1
+    <input type="radio" name="q10" value="2" onclick="calculateScore();"> 2
+    <input type="radio" name="q10" value="3" onclick="calculateScore();"> 3
+    <input type="radio" name="q10" value="4" onclick="calculateScore();"> 4
+    <input type="radio" name="q10" value="5" onclick="calculateScore();"> 5
+    <input type="radio" name="q10" value="6" onclick="calculateScore();"> 6
+</div>
+
+
+    <!-- Link to the external form -->
+    <div class="link">
+        <p>Now that you have completed the self-assessments, spend a few minutes reviewing your scores.
+            <br> 
+            To do this, you will need the review the total results of each question.
+            <br> 
+            Look at the statements for which you scored 3, 4, 5, and 6. 
+            Record them in the spaces left for notes by clicking <a href="https://forms.gle/ULLaoyRCBXNkwr3K8" target="_blank">here</a> to access the form for writing your notes.
+            <br><br>
+            Then consider the following questions:
+            <br>
+            <p style="text-align: start; font-size: 1.2em; color: #0167ec;">
+                1. Do you have memories of specific experiences or events that go with these statements?
+                <br>
+                2. Do you have memories of specific experiences or events that go with these statements?
+                <br>
+                3. Do you remember how you felt then?
+                <br>
+                4. How do you feel now?
+                <br>
+                5. Did the statement that resonated with you make you aware of any patterns in your life?
+                <br>
+                6. Behavioral patterns? Relationship patterns?
+                <br>
+                7. Did any of the results surprise you?
+            </p>
+    
+           
+</body>
+</html>
+
